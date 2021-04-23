@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 class Location {
   final String street;
   final String city;
@@ -7,9 +9,9 @@ class Location {
   Location(this.street, this.city, this.state);
 
   Location.fromJson(Map<String, dynamic> json)
-      : street = json["street"],
-        city = json["city"],
-        state = json["state"];
+      : street = json["street"] as String,
+        city = json["city"] as String,
+        state = json["state"] as String;
 }
 class Name {
   final String title;
@@ -19,9 +21,9 @@ class Name {
   Name(this.title, this.first, this.last);
 
   Name.fromJson(Map<String, dynamic> json)
-      : title = json["title"],
-        first = json["first"],
-        last = json["last"];
+      : title = json["title"] as String,
+        first = json["first"] as String,
+        last = json["last"] as String;
 }
 class Picture {
   final String large;
@@ -31,9 +33,9 @@ class Picture {
   Picture(this.large, this.medium, this.thumbnail);
 
   Picture.fromJson(Map<String, dynamic> json)
-      : large = json["large"],
-        medium = json["medium"],
-        thumbnail = json["thumbnail"];
+      : large = json["large"] as String,
+        medium = json["medium"] as String,
+        thumbnail = json["thumbnail"] as String;
 }
 
 
@@ -47,11 +49,11 @@ class User {
   User(this.gender, this.name, this.email, this.picture);
 
   User.fromJson(Map<String, dynamic> json)
-      : gender = json["gender"],
-        name = Name.fromJson(json["name"]),
+      : gender = json["gender"] as String,
+        name = Name.fromJson(json["name"] as Map<String,dynamic>),
         // location = Location.fromJson(json["location"]),
-        email = json["email"],
-        picture = Picture.fromJson(json["picture"]);
+        email = json["email"] as String,
+        picture = Picture.fromJson(json["picture"] as Map<String,dynamic>);
 
 }
 
@@ -64,7 +66,7 @@ class UserResponse {
 
   UserResponse.fromJson(Map<String, dynamic> json)
       : results =
-  (json["results"] as List).map((i) => new User.fromJson(i)).toList(),
+  (json["results"] as List).map((i) => new User.fromJson(i as LinkedHashMap<String,dynamic>)).toList(),
         error = "";
 
   UserResponse.withError(String errorValue)

@@ -36,18 +36,26 @@ class _UserContent extends State<UserContent> {
       body: Container(
           child: Selector<UserViewModel, UserResponse>(
               builder: (context, data, child) {
-                if(data!=null)
-                   return Center(
+                if(data!=null) {
+                  return Center(
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.center,
                        crossAxisAlignment: CrossAxisAlignment.center,
                        children: [
-                         Text("${data.results.first.name.first}")
+                         Container(
+                           width: 100,height: 100,
+                           child: ClipOval(
+                             child: Image.network(data.results.first.picture.medium,fit: BoxFit.cover,),
+                           ),
+                         ),
+                         SizedBox(height: 15,),
+                         Text("${data.results.first.name.first} ${data.results.first.name.last}",style: const TextStyle(fontSize: 18,color: Colors.black),)
                        ],
                      ),
                    );
-                else
-                 return Center(child: Text("User Not Available"));
+                } else {
+                  return Center(child: const Text("User Not Available"));
+                }
               }, selector: (_,viewmodel)=>viewmodel.userResponse)
 
       ),

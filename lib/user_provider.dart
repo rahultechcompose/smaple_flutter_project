@@ -16,10 +16,10 @@ class UserApiProvider{
     try {
       Response response = await _dio.get(_endpoint);
       log("response ${response.toString()}");
-      return UserResponse.fromJson(response.data);
+      return UserResponse.fromJson(response.data as Map<String,dynamic>);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
-      return UserResponse.withError(_handleError(error));
+      return UserResponse.withError(_handleError(error as Error));
     }
   }
 }
