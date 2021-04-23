@@ -23,6 +23,12 @@ class UserContent extends StatefulWidget {
 }
 
 class _UserContent extends State<UserContent> {
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
