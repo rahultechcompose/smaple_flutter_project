@@ -5,7 +5,6 @@ class Location {
   final String city;
   final String state;
 
-
   Location(this.street, this.city, this.state);
 
   Location.fromJson(Map<String, dynamic> json)
@@ -60,16 +59,12 @@ class User {
 
 class UserResponse {
   final List<User> results;
-  final String error;
 
-  UserResponse(this.results, this.error);
+  UserResponse(this.results);
 
   UserResponse.fromJson(Map<String, dynamic> json)
       : results =
-  (json["results"] as List).map((i) => new User.fromJson(i as LinkedHashMap<String,dynamic>)).toList(),
-        error = "";
+  (json["results"] as List).map((i) => new User.fromJson(i as LinkedHashMap<String,dynamic>)).toList();
 
-  UserResponse.withError(String errorValue)
-      : results = List(),
-        error = errorValue;
+
 }

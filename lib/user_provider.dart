@@ -2,28 +2,38 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:sample_flutter_app/response_model.dart';
+import 'package:sample_flutter_app/result.dart';
 
 class UserApiProvider{
-  final String _endpoint = "https://randomuser.me/api/";
+  final String _endpoint = "https://randomuser.me/api/ignore";
   // BaseOptions options =
   // BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
   Dio _dio ;
   UserApiProvider(){
     _dio= Dio();
+    _dio.interceptors.clear();
+    _dio.interceptors.add(InterceptorsWrapper(
+        onRequest:(options, handler){
+          return handler.next(options); //continue
+        },
+        onResponse:(response,handler) {
+          return handler.next(response); // continue
+        },
+        onError: (DioError e, handler) {
+          return  handler.next(e);//continue
+        }
+    ));
   }
-  Future<UserResponse> getUser() async {
-    log("getUser");
+  Future<Result<UserResponse,String>> getUser() async {
     try {
       Response response = await _dio.get(_endpoint);
-      log("response ${response.toString()}");
-      return UserResponse.fromJson(response.data as Map<String,dynamic>);
+      return Result.success(UserResponse.fromJson(response.data as Map<String,dynamic>));
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return UserResponse.withError(_handleError(error as Error));
+      return Result.error(_handleError(error as DioError));
     }
   }
 }
-String _handleError(Error error) {
+String _handleError(DioError error) {
   String errorDescription = "";
   if (error is DioError) {
     DioError dioError = error as DioError;
