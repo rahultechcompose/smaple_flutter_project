@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/response_model.dart';
 import 'package:sample_flutter_app/viewmodel.dart';
 
@@ -29,6 +31,7 @@ class _UserContent extends State<UserContent> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(

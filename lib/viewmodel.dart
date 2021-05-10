@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sample_flutter_app/main.dart';
+import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/response_model.dart';
 import 'package:sample_flutter_app/result.dart';
 import 'package:sample_flutter_app/user_repository.dart';
@@ -9,7 +12,7 @@ class UserViewModel extends ChangeNotifier {
   UserRepository userRepository;
   UserResponse _userResponse;
   String _errorResult="User Not Available";
-
+  GetIt locator = GetIt();
 
   String get errorResult => _errorResult;
 
@@ -26,16 +29,18 @@ class UserViewModel extends ChangeNotifier {
   }
 
   UserViewModel() {
-    userRepository = UserRepository();
+   userRepository= getIt<UserRepository>();
+   log("my user ${ getIt<RandomModel>().id}");
+   // userRepository = UserRepository();
     getData();
   }
 
-  getData() async {
-    Result result = await userRepository.getUser();
+  void getData() async {
+    final result = await userRepository.getUser();
     result.when(onSuccess: (data) {
-      userResponse=data as UserResponse;
+      userResponse=data;
     }, onError: (error) {
-      errorResult=error as String;
+      errorResult=error;
     });
   }
 }

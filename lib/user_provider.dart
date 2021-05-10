@@ -1,16 +1,15 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:sample_flutter_app/main.dart';
 import 'package:sample_flutter_app/response_model.dart';
 import 'package:sample_flutter_app/result.dart';
 
 class UserApiProvider{
-  final String _endpoint = "https://randomuser.me/api/ignore";
-  // BaseOptions options =
-  // BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
+  final String _endpoint = "https://randomuser.me/api"; 
   Dio _dio ;
   UserApiProvider(){
-    _dio= Dio();
+    _dio= getIt<Dio>();
     _dio.interceptors.clear();
     _dio.interceptors.add(InterceptorsWrapper(
         onRequest:(options, handler){

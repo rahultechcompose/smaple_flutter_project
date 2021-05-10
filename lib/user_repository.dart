@@ -5,7 +5,7 @@ import 'package:sample_flutter_app/user_provider.dart';
 class UserRepository{
   UserApiProvider _apiProvider = UserApiProvider();
 
-  Future<Result> getUser(){
+  Future<Result<UserResponse,String>> getUser(){
     return _apiProvider.getUser();
   }
 }

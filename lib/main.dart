@@ -1,12 +1,26 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/user_page.dart';
+import 'package:sample_flutter_app/user_repository.dart';
 import 'package:sample_flutter_app/viewmodel.dart';
 
+GetIt getIt = GetIt();
+
 void main() {
+
+  setUp();
   runApp(MyApp());
 }
-
+setUp(){
+  getIt.registerFactory(() => RandomModel());
+  getIt.registerSingleton<Dio>(Dio());
+  getIt.registerSingleton<UserRepository>(UserRepository());
+}
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -64,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+   log("my home ${ getIt<RandomModel>().id}");
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
