@@ -30,8 +30,6 @@ class UserViewModel extends ChangeNotifier {
 
   UserViewModel() {
    userRepository= getIt<UserRepository>();
-   log("my user ${ getIt<RandomModel>().id}");
-   // userRepository = UserRepository();
     getData();
   }
 

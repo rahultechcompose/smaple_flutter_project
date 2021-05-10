@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:sample_flutter_app/main.dart';
 import 'package:sample_flutter_app/response_model.dart';
 import 'package:sample_flutter_app/result.dart';
 import 'package:sample_flutter_app/user_provider.dart';

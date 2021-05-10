@@ -4,10 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:sample_flutter_app/news_page.dart';
 import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/user_page.dart';
 import 'package:sample_flutter_app/user_repository.dart';
 import 'package:sample_flutter_app/viewmodel.dart';
+
+import 'news_provider.dart';
+import 'news_repository.dart';
 
 GetIt getIt = GetIt();
 
@@ -20,6 +24,8 @@ setUp(){
   getIt.registerFactory(() => RandomModel());
   getIt.registerSingleton<Dio>(Dio());
   getIt.registerSingleton<UserRepository>(UserRepository());
+  getIt.registerSingleton(NewsProvider());
+  getIt.registerSingleton(NewsRepository());
 }
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -28,15 +34,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        textTheme: TextTheme(
+          headline:TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.w800),
+          subhead:TextStyle(fontSize: 14,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.w600),
+          subtitle:TextStyle(fontSize: 10,color: Colors.grey.withOpacity(0.5),fontWeight: FontWeight.w600),
+
+        ),
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -78,7 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-   log("my home ${ getIt<RandomModel>().id}");
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -112,7 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             RaisedButton(onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>UserPage()));
-            },child: Text("User Profile"),)
+            },child: Text("User Profile"),),
+            RaisedButton(onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NewsPage()));
+            },child: Text("News"),)
           ],
         ),
       ),
