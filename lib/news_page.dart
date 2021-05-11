@@ -1,28 +1,54 @@
 
-
-import 'dart:developer';
-import 'comman_export.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+
+
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sample_flutter_app/news_item.dart';
 import 'package:sample_flutter_app/news_viewmodel.dart';
+import 'comman_export.dart';
 
-class NewsPage extends StatefulWidget {
+
+class NewsPage extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _NewsPage();
+  Widget build(BuildContext context) {
+    final viewmodel=NewsViewModel();
+    return Provider(
+      create: (context) =>viewmodel,
+      child: NewsContent(viewmodel),
+    );
   }
 }
+
+class NewsContent extends StatefulWidget {
+  NewsViewModel viewModel;
+
+
+  NewsContent(this.viewModel);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _NewsContent();
+  }
+}
+
 // flutter packages pub run build_runner build
-class _NewsPage extends State<NewsPage> {
-  NewsViewModel newsViewModel = NewsViewModel();
+class _NewsContent extends State<NewsContent> {
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    log("build");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("News",style:  TextStyle(color: Colors.white,fontSize: 18),),
+        title: const Text(
+          "News",
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
         centerTitle: true,
       ),
       body: Stack(
@@ -32,10 +58,10 @@ class _NewsPage extends State<NewsPage> {
             child: Observer(
               builder: (_) {
                 return ListView.builder(
-                  itemCount: newsViewModel.list.length,
+                  itemCount: widget.viewModel.list.value.length,
                   physics: const AlwaysScrollableScrollPhysics(),
-                  itemBuilder: (context,index){
-                    return NewsItem(newsViewModel.list[index]);
+                  itemBuilder: (context, index) {
+                    return NewsItem( widget.viewModel.list.value[index]);
                   },
                 );
               },
@@ -44,30 +70,32 @@ class _NewsPage extends State<NewsPage> {
           Observer(
             builder: (_) {
               return Visibility(
-                visible: !newsViewModel.isLoading&&newsViewModel.list.isNullOrEmpty()?true:false,
-                child:Center(
-                  child: Text(newsViewModel.error,style: Theme.of(context).textTheme.headline,),
-                )
-              );
+                  visible: ! widget.viewModel.isLoading &&
+                      widget.viewModel.list.value.isNullOrEmpty()
+                      ? true
+                      : false,
+                  child: Center(
+                    child: Text(
+                      widget.viewModel.error,
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                  ));
             },
           ),
           Observer(
             builder: (_) {
               return Visibility(
-                visible: newsViewModel.isLoading,
-                child: Center(
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      child: const CircularProgressIndicator(),
-                    )
-                )
-              );
+                  visible:  widget.viewModel.isLoading,
+                  child: Center(
+                      child: Container(
+                    width: 50,
+                    height: 50,
+                    child: const CircularProgressIndicator(),
+                  )));
             },
           )
         ],
       ),
-
     );
   }
 }

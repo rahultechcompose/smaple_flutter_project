@@ -9,16 +9,31 @@ part of 'news_viewmodel.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$NewsViewModel on _NewsViewModel, Store {
+  final _$apiCallStatusAtom = Atom(name: '_NewsViewModel.apiCallStatus');
+
+  @override
+  ApiCallStatus get apiCallStatus {
+    _$apiCallStatusAtom.reportRead();
+    return super.apiCallStatus;
+  }
+
+  @override
+  set apiCallStatus(ApiCallStatus value) {
+    _$apiCallStatusAtom.reportWrite(value, super.apiCallStatus, () {
+      super.apiCallStatus = value;
+    });
+  }
+
   final _$listAtom = Atom(name: '_NewsViewModel.list');
 
   @override
-  List<NewsData> get list {
+  Observable<List<NewsData>> get list {
     _$listAtom.reportRead();
     return super.list;
   }
 
   @override
-  set list(List<NewsData> value) {
+  set list(Observable<List<NewsData>> value) {
     _$listAtom.reportWrite(value, super.list, () {
       super.list = value;
     });
@@ -57,13 +72,14 @@ mixin _$NewsViewModel on _NewsViewModel, Store {
   final _$getDataAsyncAction = AsyncAction('_NewsViewModel.getData');
 
   @override
-  Future getData() {
+  Future<void> getData() {
     return _$getDataAsyncAction.run(() => super.getData());
   }
 
   @override
   String toString() {
     return '''
+apiCallStatus: ${apiCallStatus},
 list: ${list},
 isLoading: ${isLoading},
 error: ${error}

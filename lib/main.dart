@@ -10,7 +10,7 @@ import 'package:sample_flutter_app/user_repository.dart';
 import 'news_provider.dart';
 import 'news_repository.dart';
 
-GetIt getIt = GetIt();
+GetIt getIt = GetIt.instance;
 
 void main() {
 

@@ -15,7 +15,7 @@ abstract class _NewsViewModel with Store {
   ApiCallStatus apiCallStatus = ApiCallStatus.init;
 
   @observable
-  List<NewsData> list = [];
+  Observable< List<NewsData>> list = Observable<List<NewsData>>([]);
 
   @observable
   bool isLoading = false;
@@ -45,10 +45,11 @@ abstract class _NewsViewModel with Store {
     isLoading = false;
     result.when(onSuccess: (successData) {
       apiCallStatus = ApiCallStatus.success;
-      list = [];
+      List<NewsData> temp=[];
       for (var element in successData.data) {
-        if (element != null) list.add(element);
+        if (element != null) temp.add(element);
       }
+      list.value=temp;
     }, onError: (error) {
       apiCallStatus = ApiCallStatus.error;
       this.error = error;
