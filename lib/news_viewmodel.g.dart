@@ -24,10 +24,49 @@ mixin _$NewsViewModel on _NewsViewModel, Store {
     });
   }
 
+  final _$isLoadingAtom = Atom(name: '_NewsViewModel.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  final _$errorAtom = Atom(name: '_NewsViewModel.error');
+
+  @override
+  String get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
+  final _$getDataAsyncAction = AsyncAction('_NewsViewModel.getData');
+
+  @override
+  Future getData() {
+    return _$getDataAsyncAction.run(() => super.getData());
+  }
+
   @override
   String toString() {
     return '''
-list: ${list}
+list: ${list},
+isLoading: ${isLoading},
+error: ${error}
     ''';
   }
 }

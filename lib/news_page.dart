@@ -1,7 +1,7 @@
 
 
 import 'dart:developer';
-
+import 'comman_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -15,7 +15,7 @@ class NewsPage extends StatefulWidget {
     return _NewsPage();
   }
 }
-
+// flutter packages pub run build_runner build
 class _NewsPage extends State<NewsPage> {
   NewsViewModel newsViewModel = NewsViewModel();
 
@@ -33,7 +33,6 @@ class _NewsPage extends State<NewsPage> {
             margin: EdgeInsets.all(8),
             child: Observer(
               builder: (_) {
-                log("list Observer ");
                 return ListView.builder(
                   itemCount: newsViewModel.list.length,
                   shrinkWrap: false,
@@ -47,11 +46,31 @@ class _NewsPage extends State<NewsPage> {
           ),
           Observer(
             builder: (_) {
-              log("build Observer ");
-              if(newsViewModel.apiCalling)
-                 return  Visibility(child:Center(child: Container(width: 40,height: 40,child: CircularProgressIndicator())),visible: newsViewModel.apiCalling);
-              else
-                return Container();
+              log("error build");
+              return Visibility(
+                visible: !newsViewModel.isLoading&&newsViewModel.list.isNullOrEmpty()?true:false,
+                child: Container(
+                  child: Center(
+                    child: Text(newsViewModel.error,style: Theme.of(context).textTheme.headline,),
+                  ),
+                ),
+              );
+            },
+          ),
+          Observer(
+            builder: (_) {
+              return Visibility(
+                visible: newsViewModel.isLoading,
+                child: Container(
+                  child: Center(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(),
+                    )
+                  ),
+                ),
+              );
             },
           )
         ],

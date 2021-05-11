@@ -5,7 +5,7 @@ import 'package:sample_flutter_app/news_data.dart';
 import 'comman_export.dart';
 
 class NewsProvider {
-  final base_url = "https://api.first.org/data/v1/news";
+  final base_url = "https://api.first.org/data/v1/news/";
   final Dio _dio = getIt<Dio>();
 
   Future<Result<NewsResponse, String>> getNews() async {

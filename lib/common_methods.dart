@@ -32,3 +32,20 @@ String handleError(DioError error) {
   }
   return errorDescription;
 }
+
+enum ApiCallStatus{INIT,LOADING,SUCCESS,ERROR}
+
+extension ListCheck on List{
+  bool isNullOrEmpty(){
+    if(this==null||this.isEmpty)
+      return true;
+    else
+      return false;
+  }
+  bool isNotNullOrEmpty(){
+    if(this!=null&&this.isNotEmpty&&this.length>0)
+      return true;
+    else
+      return false;
+  }
+}
