@@ -12,7 +12,7 @@ class NewsViewModel = _NewsViewModel with _$NewsViewModel;
 
 abstract class _NewsViewModel with Store {
   @observable
-  ApiCallStatus apiCallStatus=ApiCallStatus.INIT;
+  ApiCallStatus apiCallStatus=ApiCallStatus.init;
 
   @observable
   List<NewsData> list = [];
@@ -39,12 +39,12 @@ abstract class _NewsViewModel with Store {
 
   @action
   Future<void> getData() async {
-    apiCallStatus=ApiCallStatus.LOADING;
+    apiCallStatus=ApiCallStatus.loading;
     isLoading=true;
     final result = await newsRepository.getNews();
     isLoading=false;
     result.when(onSuccess: (successData) {
-      apiCallStatus=ApiCallStatus.SUCCESS;
+      apiCallStatus=ApiCallStatus.success;
       list=[];
      successData.data.forEach((element) {
        if(element!=null) list.add(element);
@@ -52,7 +52,7 @@ abstract class _NewsViewModel with Store {
 
 
     }, onError: (error) {
-      apiCallStatus=ApiCallStatus.ERROR;
+      apiCallStatus=ApiCallStatus.error;
       this.error=error;
     });
   }

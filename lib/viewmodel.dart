@@ -1,11 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sample_flutter_app/main.dart';
-import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/response_model.dart';
-import 'package:sample_flutter_app/result.dart';
 import 'package:sample_flutter_app/user_repository.dart';
 
 class UserViewModel extends ChangeNotifier {
@@ -33,7 +30,7 @@ class UserViewModel extends ChangeNotifier {
     getData();
   }
 
-  void getData() async {
+  Future<void> getData() async {
     final result = await userRepository.getUser();
     result.when(onSuccess: (data) {
       userResponse=data;

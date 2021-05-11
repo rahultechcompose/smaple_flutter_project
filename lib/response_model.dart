@@ -64,7 +64,7 @@ class UserResponse {
 
   UserResponse.fromJson(Map<String, dynamic> json)
       : results =
-  (json["results"] as List).map((i) => new User.fromJson(i as LinkedHashMap<String,dynamic>)).toList();
+  (json["results"] as List).map((i) =>  User.fromJson(i as LinkedHashMap<String,dynamic>)).toList();
 
 
 }

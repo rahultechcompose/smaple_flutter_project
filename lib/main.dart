@@ -1,14 +1,11 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 import 'package:sample_flutter_app/news_page.dart';
 import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/user_page.dart';
 import 'package:sample_flutter_app/user_repository.dart';
-import 'package:sample_flutter_app/viewmodel.dart';
 
 import 'news_provider.dart';
 import 'news_repository.dart';

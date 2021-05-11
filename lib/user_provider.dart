@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:sample_flutter_app/main.dart';
@@ -9,7 +8,7 @@ import 'common_methods.dart';
 
 class UserApiProvider{
   final String _endpoint = "https://randomuser.me/api"; 
-  Dio _dio = getIt<Dio>() ;
+  final _dio = getIt<Dio>() ;
 
 /*  UserApiProvider(){
     *//*_dio= getIt<Dio>();
@@ -28,7 +27,7 @@ class UserApiProvider{
   }*/
   Future<Result<UserResponse,String>> getUser() async {
     try {
-      Response response = await _dio.get(_endpoint);
+      final response = await _dio.get(_endpoint);
       return Result.success(UserResponse.fromJson(response.data as Map<String,dynamic>));
     } catch (error, stacktrace) {
       return Result.error(handleError(error as DioError));

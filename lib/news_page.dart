@@ -4,8 +4,6 @@ import 'dart:developer';
 import 'comman_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
-import 'package:sample_flutter_app/news_data.dart';
 import 'package:sample_flutter_app/news_item.dart';
 import 'package:sample_flutter_app/news_viewmodel.dart';
 
@@ -24,13 +22,13 @@ class _NewsPage extends State<NewsPage> {
     log("build");
     return Scaffold(
       appBar: AppBar(
-        title: Text("News",style: TextStyle(color: Colors.white,fontSize: 18),),
+        title: Text("News",style: const TextStyle(color: Colors.white,fontSize: 18),),
         centerTitle: true,
       ),
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: Observer(
               builder: (_) {
                 return ListView.builder(

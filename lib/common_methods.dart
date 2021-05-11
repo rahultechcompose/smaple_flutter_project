@@ -3,9 +3,8 @@ import 'package:dio/dio.dart';
 String handleError(DioError error) {
   String errorDescription = "";
   if (error is DioError) {
-    DioError dioError = error as DioError;
 
-    switch (dioError.type) {
+    switch (error.type) {
       case DioErrorType.cancel:
         errorDescription = "Request to API server was cancelled";
         break;
@@ -21,7 +20,7 @@ String handleError(DioError error) {
         break;
       case DioErrorType.response:
         errorDescription =
-        "Received invalid status code: ${dioError.response.statusCode}";
+        "Received invalid status code: ${error.response.statusCode}";
         break;
       case DioErrorType.sendTimeout:
         errorDescription = "Send timeout in connection with API server";
@@ -33,19 +32,21 @@ String handleError(DioError error) {
   return errorDescription;
 }
 
-enum ApiCallStatus{INIT,LOADING,SUCCESS,ERROR}
+enum ApiCallStatus{init,loading,success,error}
 
 extension ListCheck on List{
   bool isNullOrEmpty(){
-    if(this==null||this.isEmpty)
+    if(this==null||this.isEmpty) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
   bool isNotNullOrEmpty(){
-    if(this!=null&&this.isNotEmpty&&this.length>0)
+    if(this!=null&&this.isNotEmpty) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 }

@@ -84,11 +84,11 @@ class NewsData {
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "title": title == null ? null : title,
-    "summary": summary == null ? null : summary,
-    "link": link == null ? null : link,
-    "published": published == null ? null : published,
-    "image": image == null ? null : image,
+    "id": id,
+    "title": title,
+    "summary": summary,
+    "link": link,
+    "published": published ,
+    "image": image,
   };
 }
