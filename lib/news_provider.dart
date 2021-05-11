@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:sample_flutter_app/news_data.dart';
@@ -10,7 +9,7 @@ class NewsProvider {
 
   Future<Result<NewsResponse, String>> getNews() async {
     try {
-      Response response = await _dio.get(base_url);
+      final response = await _dio.get(base_url);
       return Result.success(
           NewsResponse.fromJson(response.data as Map<String, dynamic>));
     } catch (error, stacktrace) {

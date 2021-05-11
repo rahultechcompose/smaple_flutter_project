@@ -17,7 +17,7 @@ void main() {
   setUp();
   runApp(MyApp());
 }
-setUp(){
+void setUp(){
   getIt.registerFactory(() => RandomModel());
   getIt.registerSingleton<Dio>(Dio());
   getIt.registerSingleton<UserRepository>(UserRepository());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         textTheme: TextTheme(
-          headline:TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.w800),
+          headline:const TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.w800),
           subhead:TextStyle(fontSize: 14,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.w600),
           subtitle:TextStyle(fontSize: 10,color: Colors.grey.withOpacity(0.5),fontWeight: FontWeight.w600),
 
@@ -63,7 +63,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final _counter = 0;
 
   // void _incrementCounter() {
   //   setState(() {
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
@@ -111,10 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             RaisedButton(onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>UserPage()));
-            },child: Text("User Profile"),),
+            },child: const Text("User Profile"),),
             RaisedButton(onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NewsPage()));
-            },child: Text("News"),)
+            },child: const Text("News"),)
           ],
         ),
       ),

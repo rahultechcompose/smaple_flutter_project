@@ -22,7 +22,7 @@ class _NewsPage extends State<NewsPage> {
     log("build");
     return Scaffold(
       appBar: AppBar(
-        title: Text("News",style: const TextStyle(color: Colors.white,fontSize: 18),),
+        title: const Text("News",style:  TextStyle(color: Colors.white,fontSize: 18),),
         centerTitle: true,
       ),
       body: Stack(
@@ -33,7 +33,6 @@ class _NewsPage extends State<NewsPage> {
               builder: (_) {
                 return ListView.builder(
                   itemCount: newsViewModel.list.length,
-                  shrinkWrap: false,
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemBuilder: (context,index){
                     return NewsItem(newsViewModel.list[index]);
@@ -46,11 +45,9 @@ class _NewsPage extends State<NewsPage> {
             builder: (_) {
               return Visibility(
                 visible: !newsViewModel.isLoading&&newsViewModel.list.isNullOrEmpty()?true:false,
-                child: Container(
-                  child: Center(
-                    child: Text(newsViewModel.error,style: Theme.of(context).textTheme.headline,),
-                  ),
-                ),
+                child:Center(
+                  child: Text(newsViewModel.error,style: Theme.of(context).textTheme.headline,),
+                )
               );
             },
           ),
@@ -58,15 +55,13 @@ class _NewsPage extends State<NewsPage> {
             builder: (_) {
               return Visibility(
                 visible: newsViewModel.isLoading,
-                child: Container(
-                  child: Center(
+                child: Center(
                     child: Container(
                       width: 50,
                       height: 50,
-                      child: CircularProgressIndicator(),
+                      child: const CircularProgressIndicator(),
                     )
-                  ),
-                ),
+                )
               );
             },
           )

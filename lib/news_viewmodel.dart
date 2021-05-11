@@ -12,13 +12,13 @@ class NewsViewModel = _NewsViewModel with _$NewsViewModel;
 
 abstract class _NewsViewModel with Store {
   @observable
-  ApiCallStatus apiCallStatus=ApiCallStatus.init;
+  ApiCallStatus apiCallStatus = ApiCallStatus.init;
 
   @observable
   List<NewsData> list = [];
 
   @observable
-  bool isLoading=false;
+  bool isLoading = false;
 
   // @computed
   // bool get apiCalling => _apiCalling;
@@ -28,7 +28,7 @@ abstract class _NewsViewModel with Store {
   // }
 
   @observable
-  String error="News not available";
+  String error = "News not available";
 
   NewsRepository newsRepository;
 
@@ -39,21 +39,19 @@ abstract class _NewsViewModel with Store {
 
   @action
   Future<void> getData() async {
-    apiCallStatus=ApiCallStatus.loading;
-    isLoading=true;
+    apiCallStatus = ApiCallStatus.loading;
+    isLoading = true;
     final result = await newsRepository.getNews();
-    isLoading=false;
+    isLoading = false;
     result.when(onSuccess: (successData) {
-      apiCallStatus=ApiCallStatus.success;
-      list=[];
-     successData.data.forEach((element) {
-       if(element!=null) list.add(element);
-     });
-
-
+      apiCallStatus = ApiCallStatus.success;
+      list = [];
+      for (var element in successData.data) {
+        if (element != null) list.add(element);
+      }
     }, onError: (error) {
-      apiCallStatus=ApiCallStatus.error;
-      this.error=error;
+      apiCallStatus = ApiCallStatus.error;
+      this.error = error;
     });
   }
 }
