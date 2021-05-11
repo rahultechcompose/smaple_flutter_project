@@ -46,7 +46,6 @@ class _NewsPage extends State<NewsPage> {
           ),
           Observer(
             builder: (_) {
-              log("error build");
               return Visibility(
                 visible: !newsViewModel.isLoading&&newsViewModel.list.isNullOrEmpty()?true:false,
                 child: Container(
