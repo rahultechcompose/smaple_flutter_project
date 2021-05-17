@@ -46,7 +46,7 @@ abstract class _NewsViewModel with Store {
     result.when(onSuccess: (successData) {
       apiCallStatus = ApiCallStatus.success;
       List<NewsData> temp=[];
-      for (var element in successData.data) {
+      for (final element in successData.data) {
         if (element != null) temp.add(element);
       }
       list.value=temp;

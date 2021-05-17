@@ -36,14 +36,50 @@ enum ApiCallStatus{init,loading,success,error}
 
 extension ListCheck on List{
   bool isNullOrEmpty(){
-    if(this==null||this.isEmpty) {
+     final list= toList();
+    if(this==null||list.isEmpty) {
       return true;
     } else {
       return false;
     }
   }
   bool isNotNullOrEmpty(){
-    if(this!=null&&this.isNotEmpty) {
+    final list= toList();
+    if(list!=null&&list.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+extension StringCheck on String {
+  bool isNullorEmpty(){
+    final str=toString();
+    if(str==null||str.isEmpty)
+      {
+        return true;
+      }
+    else{
+      return false;
+    }
+  }
+
+  bool isEmailValid() {
+    final str=toString();
+    const pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    final RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(str)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  bool isPasswordValid() {
+    final str=toString();
+    if (!str.isNullorEmpty() && str.length >= 6) {
       return true;
     } else {
       return false;

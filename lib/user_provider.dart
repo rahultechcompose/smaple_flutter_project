@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:sample_flutter_app/main.dart';
 import 'package:sample_flutter_app/response_model.dart';
@@ -30,6 +32,7 @@ class UserApiProvider{
       final response = await _dio.get(_endpoint);
       return Result.success(UserResponse.fromJson(response.data as Map<String,dynamic>));
     } catch (error, stacktrace) {
+      log("stacktrace ${stacktrace.toString()}");
       return Result.error(handleError(error as DioError));
     }
   }

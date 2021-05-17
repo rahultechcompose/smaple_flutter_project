@@ -70,7 +70,7 @@ class _NewsContent extends State<NewsContent> {
           Observer(
             builder: (_) {
               return Visibility(
-                  visible: ! widget.viewModel.isLoading &&
+                  visible: !widget.viewModel.isLoading &&
                       widget.viewModel.list.value.isNullOrEmpty()
                       ? true
                       : false,
@@ -86,11 +86,11 @@ class _NewsContent extends State<NewsContent> {
             builder: (_) {
               return Visibility(
                   visible:  widget.viewModel.isLoading,
-                  child: Center(
-                      child: Container(
+                  child: const Center(
+                      child: SizedBox(
                     width: 50,
                     height: 50,
-                    child: const CircularProgressIndicator(),
+                    child:  CircularProgressIndicator(),
                   )));
             },
           )

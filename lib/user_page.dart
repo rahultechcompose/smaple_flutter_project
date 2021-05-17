@@ -39,7 +39,7 @@ class _UserContent extends State<UserContent> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 100,
                       height: 100,
                       child: ClipOval(
