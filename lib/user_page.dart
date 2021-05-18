@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sample_flutter_app/viewmodel.dart';
 
 class UserPage extends StatelessWidget {
+  static const String route="user_page";
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

@@ -36,17 +36,23 @@ class MyApp extends StatelessWidget {
           headline:const TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.w800),
           subhead:TextStyle(fontSize: 14,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.w600),
           subtitle:TextStyle(fontSize: 10,color: Colors.grey.withOpacity(0.5),fontWeight: FontWeight.w600),
-
         ),
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        MyHomePage.route:(context)=>MyHomePage(title: 'Flutter Demo Home Page'),
+        UserPage.route:(context)=>UserPage(),
+        NewsPage.route:(context)=>NewsPage(),
+        RegistrationPage.route:(context)=>RegistrationPage()
+      },
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key key, this.title}) : super(key: key);
+  static const String route="/";
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -111,13 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             RaisedButton(onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>UserPage()));
+              Navigator.of(context).pushNamed(UserPage.route);
             },child: const Text("User Profile"),),
             RaisedButton(onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NewsPage()));
+              Navigator.of(context).pushNamed(NewsPage.route);
             },child: const Text("News"),),
             RaisedButton(onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RegistrationPage()));
+              Navigator.of(context).pushNamed(RegistrationPage.route);
             },child: const Text("User Registration"),),
           ],
         ),

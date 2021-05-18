@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +5,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_flutter_app/registration_viewmodel.dart';
 import 'package:sample_flutter_app/rounded_button.dart';
-import 'common_methods.dart';
 
 class RegistrationPage extends StatelessWidget {
+  static const String route="registration_page";
   @override
   Widget build(BuildContext context) {
     final viewmodel = RegistrationViewModel();
@@ -33,7 +32,7 @@ class RegistrationContent extends StatefulWidget {
 class _RegistrationContent extends State<RegistrationContent> {
   TextEditingController emailController, passwordController;
   bool isDiable = true;
-  final GlobalKey<FormState> _formKey =  GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -55,18 +54,19 @@ class _RegistrationContent extends State<RegistrationContent> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(left: 25, right: 25, top: 42),
+                      margin:
+                          const EdgeInsets.only(left: 25, right: 25, top: 42),
                       child: TextFormField(
                         textAlign: TextAlign.left,
                         controller: emailController,
-                        validator: (val) =>
-                        !val.isEmailValid() ? "Please Enter Valid Email" : null,
+                        // validator: (val) => widget.viewModel.validateEmail(),
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                           hintText: "Email",
                         ),
                         onChanged: (str) {
-                          validateFields();
+                          widget.viewModel.email = str;
+                          widget.viewModel.validateFields();
                         },
                       ),
                     ),
@@ -77,18 +77,19 @@ class _RegistrationContent extends State<RegistrationContent> {
                       child: TextFormField(
                         textAlign: TextAlign.left,
                         controller: passwordController,
-                        obscureText:true ,
-                        validator: (val) =>
-                        !val.isPasswordValid() ? "Please Enter Password" : null,
+                        obscureText: true,
+                        // validator: (val) => widget.viewModel.validatePassword(),
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           hintText: "Password",
                         ),
                         onChanged: (str) {
-                          validateFields();
+                          widget.viewModel.password = str;
+                          widget.viewModel.validateFields();
                         },
                       ),
-                      margin: const EdgeInsets.only(left: 25, right: 25, top: 42),
+                      margin:
+                          const EdgeInsets.only(left: 25, right: 25, top: 42),
                     ),
                     const SizedBox(
                       height: 20,
@@ -96,11 +97,12 @@ class _RegistrationContent extends State<RegistrationContent> {
                     Observer(builder: (_) {
                       return RoundedButton(
                         "Submit",
-                            () {
+                        () {
                           if (!_formKey.currentState.validate()) {
                             return;
                           } else {
-                            widget.viewModel.onLogin(emailController.text,passwordController.text);
+                            widget.viewModel.onLogin(
+                                emailController.text, passwordController.text);
                           }
                         },
                         disable: widget.viewModel.isSubmitDisable,
@@ -109,21 +111,14 @@ class _RegistrationContent extends State<RegistrationContent> {
                   ],
                 ),
               ),
-              Observer(builder: (_)=>Center(child:Text(widget.viewModel.status,),))
+              Observer(
+                  builder: (_) => Center(
+                        child: Text(
+                          widget.viewModel.status,
+                        ),
+                      ))
             ],
           ),
         ));
-  }
-
-  void validateFields() {
-    if (emailController.text.isEmailValid() &&
-        passwordController.text.isPasswordValid()) {
-      log("email pass word valid");
-      widget.viewModel.submitDisable = false;
-    } else {
-      log("email password are invalid ");
-
-      widget.viewModel.submitDisable = true;
-    }
   }
 }

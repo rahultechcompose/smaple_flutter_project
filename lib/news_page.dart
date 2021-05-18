@@ -10,6 +10,7 @@ import 'comman_export.dart';
 
 
 class NewsPage extends StatelessWidget {
+  static const String route="news_page";
   @override
   Widget build(BuildContext context) {
     final viewmodel=NewsViewModel();

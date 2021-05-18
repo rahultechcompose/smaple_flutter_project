@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
+import 'comman_export.dart';
 
 part 'registration_viewmodel.g.dart';
 
@@ -13,7 +14,13 @@ abstract class _RegistrationViewModel with Store {
   bool isSubmitDisable = true;
 
   @observable
-  String status="";
+  String email;
+
+  @observable
+  String password;
+
+  @observable
+  String status = "";
 
   set submitDisable(bool value) {
     isSubmitDisable = value;
@@ -22,13 +29,36 @@ abstract class _RegistrationViewModel with Store {
   @action
   void onLogin(String email, String password) {
     if (email == "admin@gmail.com" && password == "123456") {
-      status="Login Successfully";
+      status = "Login Successfully";
       log("Login Successfully");
-      Fluttertoast.showToast(msg: "Login Successfully",toastLength: Toast.LENGTH_SHORT,);
+      Fluttertoast.showToast(
+        msg: "Login Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+      );
     } else {
-      status="Email or Password is incorrect";
+      status = "Email or Password is incorrect";
       log("Email or Password is incorrect");
-      Fluttertoast.showToast(msg: "Email or Password is incorrect",toastLength: Toast.LENGTH_SHORT,);
+      Fluttertoast.showToast(
+        msg: "Email or Password is incorrect",
+        toastLength: Toast.LENGTH_SHORT,
+      );
     }
   }
+
+  @action
+  void validateFields() {
+    if (email.isEmailValid() && password.isPasswordValid()) {
+      log("email pass word valid");
+      submitDisable = false;
+    } else {
+      log("email password are invalid ");
+      submitDisable = true;
+    }
+  }
+
+  String validateEmail() =>
+      email.isEmailValid() ? "Please Enter Valid Email" : null;
+
+  String validatePassword() =>
+      !password.isEmailValid() ? "Please Enter Password" : null;
 }
