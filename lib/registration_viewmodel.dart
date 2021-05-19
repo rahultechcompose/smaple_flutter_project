@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
+
 import 'comman_export.dart';
 
 part 'registration_viewmodel.g.dart';
@@ -14,10 +15,18 @@ abstract class _RegistrationViewModel with Store {
   bool isSubmitDisable = true;
 
   @observable
-  String email;
+  String email = "";
 
   @observable
-  String password;
+  String password = "";
+
+  set setEmail(String input) {
+    email = input;
+  }
+
+  set setPassword(String input) {
+    password = input;
+  }
 
   @observable
   String status = "";
@@ -45,14 +54,17 @@ abstract class _RegistrationViewModel with Store {
     }
   }
 
-  @action
-  void validateFields() {
+  void initMethod(int value) {
+    email = "unknown $value";
+    password = "unknown $value";
+  }
+
+  @computed
+  bool get validateFields {
     if (email.isEmailValid() && password.isPasswordValid()) {
-      log("email pass word valid");
-      submitDisable = false;
+      return false;
     } else {
-      log("email password are invalid ");
-      submitDisable = true;
+      return true;
     }
   }
 

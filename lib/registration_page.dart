@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,8 @@ import 'package:sample_flutter_app/registration_viewmodel.dart';
 import 'package:sample_flutter_app/rounded_button.dart';
 
 class RegistrationPage extends StatelessWidget {
-  static const String route="registration_page";
+  static const String route = "registration_page";
+
   @override
   Widget build(BuildContext context) {
     final viewmodel = RegistrationViewModel();
@@ -33,6 +35,7 @@ class _RegistrationContent extends State<RegistrationContent> {
   TextEditingController emailController, passwordController;
   bool isDiable = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  int counter = 1;
 
   @override
   void initState() {
@@ -43,6 +46,7 @@ class _RegistrationContent extends State<RegistrationContent> {
 
   @override
   Widget build(BuildContext context) {
+    log("build");
     return Scaffold(
         appBar: AppBar(),
         body: Form(
@@ -55,7 +59,7 @@ class _RegistrationContent extends State<RegistrationContent> {
                   children: [
                     Container(
                       margin:
-                          const EdgeInsets.only(left: 25, right: 25, top: 42),
+                      const EdgeInsets.only(left: 25, right: 25, top: 42),
                       child: TextFormField(
                         textAlign: TextAlign.left,
                         controller: emailController,
@@ -65,8 +69,8 @@ class _RegistrationContent extends State<RegistrationContent> {
                           hintText: "Email",
                         ),
                         onChanged: (str) {
-                          widget.viewModel.email = str;
-                          widget.viewModel.validateFields();
+                          widget.viewModel.setEmail = str;
+                          // widget.viewModel.validateFields();
                         },
                       ),
                     ),
@@ -84,12 +88,12 @@ class _RegistrationContent extends State<RegistrationContent> {
                           hintText: "Password",
                         ),
                         onChanged: (str) {
-                          widget.viewModel.password = str;
-                          widget.viewModel.validateFields();
+                          widget.viewModel.setPassword = str;
+                          // widget.viewModel.validateFields();
                         },
                       ),
                       margin:
-                          const EdgeInsets.only(left: 25, right: 25, top: 42),
+                      const EdgeInsets.only(left: 25, right: 25, top: 42),
                     ),
                     const SizedBox(
                       height: 20,
@@ -105,16 +109,33 @@ class _RegistrationContent extends State<RegistrationContent> {
                                 emailController.text, passwordController.text);
                           }
                         },
-                        disable: widget.viewModel.isSubmitDisable,
+                        disable: widget.viewModel.validateFields,
                       );
                     }),
+                    RoundedButton(
+                      "set value",
+                      () {
+                        widget.viewModel.initMethod(counter++);
+                      },
+                    )
                   ],
                 ),
               ),
               Observer(
                   builder: (_) => Center(
-                        child: Text(
-                          widget.viewModel.status,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              widget.viewModel.email,
+                            ),
+                            Text(
+                              widget.viewModel.password,
+                            ),
+                            Text(
+                              widget.viewModel.status,
+                            ),
+                          ],
                         ),
                       ))
             ],
