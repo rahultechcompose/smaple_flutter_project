@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-
+import 'package:intl/intl.dart';
 String handleError(DioError error) {
   String errorDescription = "";
   if (error is DioError) {
@@ -78,7 +78,7 @@ extension StringCheck on String {
   }
 
   bool isPasswordValid() {
-    final str=toString();
+    final str = toString();
     if (!str.isNullorEmpty() && str.length >= 6) {
       return true;
     } else {
@@ -86,3 +86,7 @@ extension StringCheck on String {
     }
   }
 }
+
+String formatDate(DateTime date) => DateFormat("MMMM dd, yyyy").format(date);
+
+String formatTime(DateTime date) => DateFormat("HH:mm").format(date);

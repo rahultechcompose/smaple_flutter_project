@@ -28,6 +28,14 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     str = toUppercase ? str.toUpperCase() : str;
     return RawMaterialButton(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      fillColor: disable ? Colors.grey : Colors.blue,
+      onPressed: disable
+          ? null
+          : () {
+              function();
+            },
       child: child ??
           Container(
             margin: EdgeInsets.only(
@@ -35,16 +43,11 @@ class RoundedButton extends StatelessWidget {
                 right: horizontalMargin,
                 top: verticalMargin,
                 bottom: verticalMargin),
-            child:Text(str,style: const TextStyle(color: Colors.white),),
+            child: Text(
+              str,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-      fillColor: disable?Colors.grey:Colors.blue,
-      onPressed: disable
-          ? null
-          : () {
-        function();
-      },
     );
   }
 }

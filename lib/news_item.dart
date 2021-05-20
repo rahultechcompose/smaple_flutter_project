@@ -27,13 +27,13 @@ class NewsItem extends StatelessWidget{
                  (){
                   if(data.image!=null&&data.image.isNotEmpty) {
                       return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
                         child: Image.network(
                           data.image,
                           fit: BoxFit.cover,
                           width: 100,
                           height: 100,
                         ),
-                        borderRadius: BorderRadius.circular(10),
                       );
                     } else {
                       return Container();

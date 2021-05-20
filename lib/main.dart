@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:sample_flutter_app/news_page.dart';
 import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/registration_page.dart';
+import 'package:sample_flutter_app/todo/todo_page.dart';
 import 'package:sample_flutter_app/user_page.dart';
 import 'package:sample_flutter_app/user_repository.dart';
 
@@ -40,10 +41,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        MyHomePage.route:(context)=>MyHomePage(title: 'Flutter Demo Home Page'),
-        UserPage.route:(context)=>UserPage(),
-        NewsPage.route:(context)=>NewsPage(),
-        RegistrationPage.route:(context)=>RegistrationPage()
+        MyHomePage.route: (context) =>
+            const MyHomePage(title: 'Flutter Demo Home Page'),
+        UserPage.route: (context) => UserPage(),
+        NewsPage.route: (context) => NewsPage(),
+        RegistrationPage.route: (context) => RegistrationPage(),
+        TodoPage.route: (context) => TodoPage()
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -116,15 +119,30 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            RaisedButton(onPressed: (){
-              Navigator.of(context).pushNamed(UserPage.route);
-            },child: const Text("User Profile"),),
-            RaisedButton(onPressed: (){
-              Navigator.of(context).pushNamed(NewsPage.route);
-            },child: const Text("News"),),
-            RaisedButton(onPressed: (){
-              Navigator.of(context).pushNamed(RegistrationPage.route);
-            },child: const Text("User Registration"),),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(UserPage.route);
+              },
+              child: const Text("User Profile"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(NewsPage.route);
+              },
+              child: const Text("News"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(RegistrationPage.route);
+              },
+              child: const Text("User Registration"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(TodoPage.route);
+              },
+              child: const Text("Todo"),
+            ),
           ],
         ),
       ),

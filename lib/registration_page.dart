@@ -78,6 +78,8 @@ class _RegistrationContent extends State<RegistrationContent> {
                       height: 20,
                     ),
                     Container(
+                      margin:
+                          const EdgeInsets.only(left: 25, right: 25, top: 42),
                       child: TextFormField(
                         textAlign: TextAlign.left,
                         controller: passwordController,
@@ -92,8 +94,6 @@ class _RegistrationContent extends State<RegistrationContent> {
                           // widget.viewModel.validateFields();
                         },
                       ),
-                      margin:
-                      const EdgeInsets.only(left: 25, right: 25, top: 42),
                     ),
                     const SizedBox(
                       height: 20,
