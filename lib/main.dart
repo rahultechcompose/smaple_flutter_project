@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sample_flutter_app/news_page.dart';
+import 'package:sample_flutter_app/note/note_page.dart';
 import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/registration_page.dart';
 import 'package:sample_flutter_app/todo/todo_page.dart';
@@ -34,9 +35,16 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         textTheme: TextTheme(
-          headline:const TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.w800),
-          subhead:TextStyle(fontSize: 14,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.w600),
-          subtitle:TextStyle(fontSize: 10,color: Colors.grey.withOpacity(0.5),fontWeight: FontWeight.w600),
+          headline1: const TextStyle(
+              fontSize: 18, color: Colors.black, fontWeight: FontWeight.w800),
+          headline3: TextStyle(
+              fontSize: 14,
+              color: Colors.black.withOpacity(0.5),
+              fontWeight: FontWeight.w600),
+          subtitle1: TextStyle(
+              fontSize: 10,
+              color: Colors.grey.withOpacity(0.5),
+              fontWeight: FontWeight.w600),
         ),
         primarySwatch: Colors.blue,
       ),
@@ -46,7 +54,8 @@ class MyApp extends StatelessWidget {
         UserPage.route: (context) => UserPage(),
         NewsPage.route: (context) => NewsPage(),
         RegistrationPage.route: (context) => RegistrationPage(),
-        TodoPage.route: (context) => TodoPage()
+        TodoPage.route: (context) => TodoPage(),
+        NotePage.route: (context) => NotePage()
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -119,29 +128,35 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(UserPage.route);
               },
               child: const Text("User Profile"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(NewsPage.route);
               },
               child: const Text("News"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(RegistrationPage.route);
               },
               child: const Text("User Registration"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(TodoPage.route);
               },
               child: const Text("Todo"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(NotePage.route);
+              },
+              child: const Text("Note"),
             ),
           ],
         ),

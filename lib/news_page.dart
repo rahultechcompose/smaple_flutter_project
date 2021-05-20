@@ -1,11 +1,10 @@
 
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-
-
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:sample_flutter_app/news_item.dart';
 import 'package:sample_flutter_app/news_viewmodel.dart';
+
 import 'comman_export.dart';
 
 
@@ -20,7 +19,7 @@ class NewsPage extends StatelessWidget {
     );
   }
 }
-
+//ignore: must_be_immutable
 class NewsContent extends StatefulWidget {
   NewsViewModel viewModel;
 
@@ -71,14 +70,12 @@ class _NewsContent extends State<NewsContent> {
           Observer(
             builder: (_) {
               return Visibility(
-                  visible: !widget.viewModel.isLoading &&
-                      widget.viewModel.list.value.isNullOrEmpty()
-                      ? true
-                      : false,
+                  visible: widget.viewModel.isLoading == false &&
+                      widget.viewModel.list.value.isNullOrEmpty(),
                   child: Center(
                     child: Text(
                       widget.viewModel.error,
-                      style: Theme.of(context).textTheme.headline,
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                   ));
             },

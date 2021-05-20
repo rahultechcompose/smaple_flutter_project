@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_flutter_app/todo/todo_viewmodel.dart';
 import 'package:sample_flutter_app/todo_model.dart';
-
+//ignore: must_be_immutable
 class TodoItem extends StatelessWidget {
   TodoModel todoModel;
   Function completeMethod;
@@ -24,7 +24,7 @@ class TodoItem extends StatelessWidget {
             children: [
               Text(
                 todoModel.todo,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.headline3,
                 textAlign: TextAlign.start,
               ),
               const SizedBox(
@@ -56,13 +56,13 @@ class TodoItem extends StatelessWidget {
                     width: 10,
                   ),
                   Text(todoModel.date,
-                      style: Theme.of(context).textTheme.subtitle),
+                      style: Theme.of(context).textTheme.subtitle1),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
                     todoModel.time,
-                    style: Theme.of(context).textTheme.subtitle,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ],
               )

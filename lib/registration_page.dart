@@ -19,7 +19,7 @@ class RegistrationPage extends StatelessWidget {
     );
   }
 }
-
+//ignore: must_be_immutable
 class RegistrationContent extends StatefulWidget {
   RegistrationViewModel viewModel;
 

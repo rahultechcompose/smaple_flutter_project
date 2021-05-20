@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -7,6 +9,7 @@ import 'package:sample_flutter_app/todo/todo_item.dart';
 
 import 'todo_viewmodel.dart';
 
+//ignore: must_be_immutable
 class TodoPage extends StatelessWidget {
   static const String route = "todo_page";
   TodoViewModel viewModel;
@@ -16,15 +19,12 @@ class TodoPage extends StatelessWidget {
     viewModel = TodoViewModel();
     return Provider(
       create: (context) => viewModel,
-      child: TodoContent(viewModel),
+      child: TodoContent(),
     );
   }
 }
 
 class TodoContent extends StatefulWidget {
-  TodoViewModel viewModel;
-
-  TodoContent(this.viewModel);
 
   @override
   State<StatefulWidget> createState() {
@@ -35,26 +35,25 @@ class TodoContent extends StatefulWidget {
 class _TodoContent extends State<TodoContent> {
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<TodoViewModel>(context, listen: false);
+    log("build");
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
           Expanded(
-            flex: 1,
             child: Column(
               children: [
                 const Text("Active Todo"),
                 Observer(builder: (_) {
-                  if (widget.viewModel.list != null &&
-                      widget.viewModel.list.isNotEmpty) {
+                  if (viewModel.list != null && viewModel.list.isNotEmpty) {
                     return ListView.builder(
                       itemBuilder: (context, index) {
-                        return TodoItem(index, widget.viewModel.list[index],
-                            widget.viewModel.completeTodo);
+                        return TodoItem(index, viewModel.list[index],
+                            viewModel.completeTodo);
                       },
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: widget.viewModel.list.length,
+                      itemCount: viewModel.list.length,
                     );
                   } else {
                     return const SizedBox(
@@ -69,7 +68,6 @@ class _TodoContent extends State<TodoContent> {
             ),
           ),
           Expanded(
-            flex: 1,
             child: Column(
               children: [
                 const Text("Completed Todo"),
@@ -77,11 +75,10 @@ class _TodoContent extends State<TodoContent> {
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       return TodoItem(
-                          index, widget.viewModel.completedlist[index], null);
+                          index, viewModel.completedlist[index], null);
                     },
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget.viewModel.completedlist.length,
+                    itemCount: viewModel.completedlist.length,
                   );
                 }),
               ],
@@ -99,6 +96,8 @@ class _TodoContent extends State<TodoContent> {
   }
 
   void showAddTaskDrawer() {
+    final viewModel = Provider.of<TodoViewModel>(context, listen: false);
+
     showModalBottomSheet(
         context: context,
         isDismissible: true,
@@ -118,7 +117,7 @@ class _TodoContent extends State<TodoContent> {
                   decoration: const InputDecoration(hintText: "Enter Task"),
                   maxLines: 3,
                   onChanged: (str) {
-                    widget.viewModel.setTaskStr(str);
+                    viewModel.setTaskStr(str);
                   },
                 ),
                 const SizedBox(
@@ -128,17 +127,17 @@ class _TodoContent extends State<TodoContent> {
                   return RoundedButton(
                     "ADD",
                     () {
-                      widget.viewModel.addTask();
+                      viewModel.addTask();
                       Navigator.of(context).pop();
                     },
-                    disable: widget.viewModel.addTaskDisable,
+                    disable: viewModel.addTaskDisable,
                   );
                 })
               ],
             ),
           );
         }).whenComplete(() {
-      widget.viewModel.taskStr = "";
+      viewModel.taskStr = "";
     });
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_flutter_app/news_data.dart';
-
+//ignore: must_be_immutable
 class NewsItem extends StatelessWidget{
   NewsData data;
 
@@ -20,12 +20,17 @@ class NewsItem extends StatelessWidget{
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(data.title??"",style: Theme.of(context).textTheme.headline,),
-              const SizedBox(height:20,),
-             Row(
-               children: [
-                 (){
-                  if(data.image!=null&&data.image.isNotEmpty) {
+              Text(
+                data.title ?? "",
+                style: Theme.of(context).textTheme.headline1,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  () {
+                    if (data.image != null && data.image.isNotEmpty) {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
@@ -40,8 +45,13 @@ class NewsItem extends StatelessWidget{
                     }
                   }(),
                  const SizedBox(width:10,),
-                 Expanded(child:Text(data.summary??"",style: Theme.of(context).textTheme.subtitle,), )
-               ],
+                  Expanded(
+                    child: Text(
+                      data.summary ?? "",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  )
+                ],
              )
             ],
           ),

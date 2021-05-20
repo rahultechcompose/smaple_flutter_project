@@ -20,13 +20,9 @@ abstract class _RegistrationViewModel with Store {
   @observable
   String password = "";
 
-  set setEmail(String input) {
-    email = input;
-  }
+  set setEmail(String input) => email = input;
 
-  set setPassword(String input) {
-    password = input;
-  }
+  set setPassword(String input) => password = input;
 
   @observable
   String status = "";
