@@ -1,12 +1,14 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sample_flutter_app/news_page.dart';
 import 'package:sample_flutter_app/note/note_page.dart';
 import 'package:sample_flutter_app/random_model.dart';
 import 'package:sample_flutter_app/registration_page.dart';
 import 'package:sample_flutter_app/todo/todo_page.dart';
+import 'package:sample_flutter_app/ui/sample_ui.dart';
 import 'package:sample_flutter_app/user_page.dart';
 import 'package:sample_flutter_app/user_repository.dart';
 
@@ -31,33 +33,36 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        textTheme: TextTheme(
-          headline1: const TextStyle(
-              fontSize: 18, color: Colors.black, fontWeight: FontWeight.w800),
-          headline3: TextStyle(
-              fontSize: 14,
-              color: Colors.black.withOpacity(0.5),
-              fontWeight: FontWeight.w600),
-          subtitle1: TextStyle(
-              fontSize: 10,
-              color: Colors.grey.withOpacity(0.5),
-              fontWeight: FontWeight.w600),
+    return ScreenUtilInit(
+      builder: () => MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          textTheme: TextTheme(
+            headline1: const TextStyle(
+                fontSize: 18, color: Colors.black, fontWeight: FontWeight.w800),
+            headline3: TextStyle(
+                fontSize: 14,
+                color: Colors.black.withOpacity(0.5),
+                fontWeight: FontWeight.w600),
+            subtitle1: TextStyle(
+                fontSize: 10,
+                color: Colors.grey.withOpacity(0.5),
+                fontWeight: FontWeight.w600),
+          ),
+          primarySwatch: Colors.blue,
         ),
-        primarySwatch: Colors.blue,
+        routes: {
+          MyHomePage.route: (context) =>
+              const MyHomePage(title: 'Flutter Demo Home Page'),
+          UserPage.route: (context) => UserPage(),
+          NewsPage.route: (context) => NewsPage(),
+          RegistrationPage.route: (context) => RegistrationPage(),
+          TodoPage.route: (context) => TodoPage(),
+          NotePage.route: (context) => NotePage(),
+          SampleUiPage.route: (context) => SampleUiPage()
+        },
+        // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
-      routes: {
-        MyHomePage.route: (context) =>
-            const MyHomePage(title: 'Flutter Demo Home Page'),
-        UserPage.route: (context) => UserPage(),
-        NewsPage.route: (context) => NewsPage(),
-        RegistrationPage.route: (context) => RegistrationPage(),
-        TodoPage.route: (context) => TodoPage(),
-        NotePage.route: (context) => NotePage()
-      },
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -157,6 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.of(context).pushNamed(NotePage.route);
               },
               child: const Text("Note"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(SampleUiPage.route);
+              },
+              child: const Text("Sample UI"),
             ),
           ],
         ),

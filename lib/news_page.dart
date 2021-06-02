@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -7,22 +6,22 @@ import 'package:sample_flutter_app/news_viewmodel.dart';
 
 import 'comman_export.dart';
 
-
 class NewsPage extends StatelessWidget {
-  static const String route="news_page";
+  static const String route = "news_page";
+
   @override
   Widget build(BuildContext context) {
-    final viewmodel=NewsViewModel();
+    final viewmodel = NewsViewModel();
     return Provider(
-      create: (context) =>viewmodel,
+      create: (context) => viewmodel,
       child: NewsContent(viewmodel),
     );
   }
 }
+
 //ignore: must_be_immutable
 class NewsContent extends StatefulWidget {
   NewsViewModel viewModel;
-
 
   NewsContent(this.viewModel);
 
@@ -34,8 +33,6 @@ class NewsContent extends StatefulWidget {
 
 // flutter packages pub run build_runner build
 class _NewsContent extends State<NewsContent> {
-
-
   @override
   void initState() {
     super.initState();
@@ -61,7 +58,7 @@ class _NewsContent extends State<NewsContent> {
                   itemCount: widget.viewModel.list.value.length,
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return NewsItem( widget.viewModel.list.value[index]);
+                    return NewsItem(widget.viewModel.list.value[index]);
                   },
                 );
               },
@@ -83,12 +80,12 @@ class _NewsContent extends State<NewsContent> {
           Observer(
             builder: (_) {
               return Visibility(
-                  visible:  widget.viewModel.isLoading,
+                  visible: widget.viewModel.isLoading,
                   child: const Center(
                       child: SizedBox(
                     width: 50,
                     height: 50,
-                    child:  CircularProgressIndicator(),
+                    child: CircularProgressIndicator(),
                   )));
             },
           )
