@@ -126,6 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.asset(
+              "assets/images/image1.jpg",
+              height: 300,
+              width: 500,
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),

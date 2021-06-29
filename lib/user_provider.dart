@@ -13,7 +13,7 @@ class UserApiProvider{
   final _dio = getIt<Dio>() ;
 
 /*  UserApiProvider(){
-    *//*_dio= getIt<Dio>();
+    */ /*_dio= getIt<Dio>();
     _dio.interceptors.clear();
     _dio.interceptors.add(InterceptorsWrapper(
         onRequest:(options, handler){
@@ -25,7 +25,7 @@ class UserApiProvider{
         onError: (DioError e, handler) {
           return  handler.next(e);//continue
         }
-    ));*//*
+    ));
   }*/
   Future<Result<UserResponse,String>> getUser() async {
     try {
